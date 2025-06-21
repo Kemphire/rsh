@@ -1,3 +1,4 @@
+#include "../common.h"
 #include "../exec/execute_commands_with_arg.c"
 #include "../parse/split_lines_to_args.c"
 #include "prompt.h"
@@ -10,7 +11,7 @@ int handle_interactive_mode() {
   char *line;
   char **args;
   do {
-    status == 0 ? printf(PROMPT) : printf(PROMPT);
+    status == 0 ? printf(PROMPT) : printf("%s%s%s", RED, PROMPT, NORMAL);
     line = read_input_line();
     if (line == NULL) {
       putchar('\n');

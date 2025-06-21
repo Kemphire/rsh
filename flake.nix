@@ -17,7 +17,11 @@
 
       src = ./.;
 
-      buildInputs = with pkgs; [gcc glibc ccls];
+      buildInputs = with pkgs; [gcc glibc ccls gnumake];
+
+      buildPhase = ''
+        make
+      '';
 
       installPhase = ''
         mkdir -p $out/bin

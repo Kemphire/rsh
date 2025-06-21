@@ -40,12 +40,5 @@ char **split_lines_to_args(char **line) {
   }
   arg_list[no_arg] = NULL;
 
-  char **d = arg_list;
-
-  while (*d) {
-    printf("%s\n", *d);
-    d++;
-  }
-
   return arg_list;
 }
