@@ -1,5 +1,23 @@
 # RSH -> russian shell
 
+# Instruction to build it
+
+## For nix users
+
+ahh, you guys most prolly know the method to build nix flakes
+
+``sh
+nix build
+./result/bin/rsh
+``
+
+## For non-nix unix/linux users
+
+``sh
+cd build
+cmake ..
+make
+``
 
 ## TODO
 
