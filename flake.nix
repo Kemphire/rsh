@@ -17,12 +17,19 @@
 
       src = ./.;
 
-      buildInputs = with pkgs; [gcc glibc ccls gnumake];
+      nativeBuildInputs = with pkgs; [cmake gnumake gcc];
 
-      buildPhase = ''
-        make
-      '';
+      buildInputs = with pkgs; [glibc ccls];
 
+      # buildPhase = ''
+      #   cmake -DCMAKE_BUILD_TYPE=Debug ..
+      #           pwd
+      #                   make
+      # '';
+
+      cmakeFlags = ["-DCMAKE_BUILD_TYPE=Debug"];
+
+      dontStrip = true;
       installPhase = ''
         mkdir -p $out/bin
         cp rsh $out/bin
@@ -34,12 +41,21 @@
     };
 
     defaultPackage.${system} = self.packages.${system}.rsh;
-    # devShells.x86_64-linux.default = pkgs.mkShell {
-    #   packages = [pkgs.expat];
-    #
-    #   shellHook = ''
-    #     export C_INCLUDE_PATH=${pkgs.expat.dev}/include
-    #   '';
-    # };
+
+    devShells.${system}.default = pkgs.mkShell {
+      buildInputs = with pkgs; [
+        cmake
+        gcc
+        gnumake
+        ccls
+        bear
+        gdb
+        valgrind
+      ];
+
+      shellHook = ''
+        echo "You're in the devShell for rsh project"
+      '';
+    };
   };
 }

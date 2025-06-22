@@ -1,8 +1,10 @@
-#include "../common.h"
-#include "../exec/execute_commands_with_arg.c"
-#include "../parse/split_lines_to_args.c"
-#include "prompt.h"
-#include "read_input_line.c"
+#include "builtins/cd.h"
+#include "common.h"
+#include "exec/execute_commands_with_arg.h"
+#include "input/prompt.h"
+#include "input/read_input_line.h"
+#include "parse/split_lines_to_args.h"
+#include "utils/free_resource.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -11,7 +13,13 @@ int handle_interactive_mode() {
   char *line;
   char **args;
   do {
-    status == 0 ? printf(PROMPT) : printf("%s%s%s", RED, PROMPT, NORMAL);
+    initalize_cdir();
+    PRINT_CDIR(CWD);
+    if (status == 0)
+      PRINT_SUCCESS(PROMPT);
+    else
+      PRINT_WARN(PROMPT);
+
     line = read_input_line();
     if (line == NULL) {
       putchar('\n');
@@ -20,7 +28,14 @@ int handle_interactive_mode() {
     }
 
     args = split_lines_to_args(&line);
+
+    // free up the line
+    free(line);
+
     status = execute_commands_with_arg(args);
+
+    // free up the args
+    free_args(args);
 
   } while (1);
 }

@@ -1,6 +1,7 @@
-#include "./input/handle_batch_mode.c"
-#include "./input/handle_interactive_mode.c"
-#include "./input/prompt.h"
+#include "input/handle_batch_mode.h"
+#include "input/handle_interactive_mode.h"
+#include "input/prompt.h"
+#include "utils/free_resource.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -13,5 +14,6 @@ int main(int argc, char *argv[]) {
   } else {
     handle_batch_mode(argv[1]);
   }
+  free_all_resources();
   return EXIT_SUCCESS;
 }
