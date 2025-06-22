@@ -1,4 +1,5 @@
 #include "builtins/cd.h"
+#include "builtins/clear.h"
 #include "builtins/exit.h"
 #include "builtins/path.h"
 #include "exec/not_builtin.h"
@@ -37,7 +38,7 @@ int execute_commands_with_arg(char **args) {
         printf("usage: cd [path]");
         return -7;
       }
-    } else {
+    } else if (strcmp("path", args[0]) == 0) {
       if (count_the_number_of_args(args) < 2) {
         printf("usage: path [path1] [path2] [...]");
         return -10;
@@ -46,7 +47,9 @@ int execute_commands_with_arg(char **args) {
         print_path();
         return 0;
       }
-      return 1;
+    } else if (strcmp("clear", args[0]) == 0) {
+      clear_screen();
+      return 0;
     }
   } else {
     return execute_not_builtin(args);
