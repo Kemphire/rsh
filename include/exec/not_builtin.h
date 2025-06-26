@@ -3,4 +3,6 @@
 
 int execute_not_builtin(char **args);
 
+int execute_redirection(char **args);
+
 #endif // !NOT_BUILTINS_H

@@ -52,6 +52,9 @@ int execute_commands_with_arg(char **args) {
       return 0;
     }
   } else {
+    if (redirection(args)) {
+      return execute_redirection(args);
+    }
     return execute_not_builtin(args);
   }
   // here the code will most prolly will never reach

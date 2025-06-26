@@ -44,3 +44,27 @@ bool is_builtin(char **args) {
   }
   return false;
 }
+
+int length_of_args(char **args) {
+  int len = 0;
+
+  char **temp = args;
+
+  while (*temp) {
+    temp++;
+    len++;
+  }
+  return len;
+}
+
+bool redirection(char **args) {
+  char **temp = args;
+
+  while (*temp) {
+    if (strcmp(*temp, ">") == 0) {
+      return true;
+    }
+    temp++;
+  }
+  return false;
+}
